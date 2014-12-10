@@ -1,0 +1,16 @@
+﻿@using Blog.Models;
+@model IEnumerable<Post>
+           
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Search";
+}
+
+
+@foreach (Post post in Model)
+{
+    @SearchHelper.Render(post, Html);
+}

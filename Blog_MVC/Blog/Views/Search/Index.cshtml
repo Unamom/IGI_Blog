@@ -1,0 +1,27 @@
+﻿@using Blog.Models;
+
+@section link3
+{
+    current
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Search.js")"></script>
+
+<div class="postContainer" id="searchContainer">
+    <div class="pageContent">
+    <div class="searchByPanel">Поиск по:
+    <select id="searchby" name="searchby">
+        <option value="1">Названию статьи</option>
+        <option value="2">Тексту статьи</option>
+    </select>
+    </div><br />
+    <input type="text" id="query" value="" class="modernInput" placeholder="Введите текст для поиска" style="width:80%" />
+    <a href="@Href("~/Categories/Edit")" class="button" style="float:right; margin-bottom: 15px;" onclick="Search(); return false;">Поиск</a>
+    </div>
+
+    <div id="searchResults"></div>
+</div>

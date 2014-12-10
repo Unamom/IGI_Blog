@@ -1,0 +1,11 @@
+﻿@using Blog.Models;
+@model IEnumerable<Post>
+@{
+    ViewBag.Title = "Categories";
+}
+
+
+@foreach (Post post in Model)
+{
+    @PostHelper.Render(post, Html, true, false, ViewBag.CategoriesClean, ViewBag.Author);
+}

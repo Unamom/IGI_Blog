@@ -1,0 +1,44 @@
+﻿@using Blog.Models;
+@model Blog.Models.Post
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="postContainer">
+    <div class="pageContent">
+
+<form action="@Href("~/Posts/Update")" class="leftForm" method="post" id="postForm">
+@if (Model.ID != -1)
+{
+    <input type="hidden" name="id" value="@Model.ID" />
+}
+
+@{ DateTime dateTime = Model.DateTime.Year > 2000 ? Model.DateTime : DateTime.Now; }
+<input type="text" class="modernInput" name="dateTime" value="@dateTime" style="width: 300px;" placeholder="Дата публикации" /><br />
+<input type="text" class="modernInput" name="title" value="@Model.Title" style="width: 300px;" placeholder="Название статьи" /><br />
+
+<select name="category" class="modernInput modernSelect" style="width: 322px;">
+<option>Выберите категорию</option>
+@{
+    string sel;
+    foreach (Category category in ViewBag.Categories)
+    {
+        if (category.ID == Model.CategoryID) { sel = "selected"; } else { sel = String.Empty; }  
+        <option @sel value="@category.ID">@category.Name</option>
+    }
+
+};
+</select>
+<br />
+
+<input type="text" class="modernInput" name="tags" value="@ViewBag.Tags" style="width: 300px;" placeholder="Тэги (через пробел)" /><br />
+<textarea name="shortBody" class="modernInput textarea" rows="10" cols="80" placeholder="Краткий текст статьи">@Model.ShortBody</textarea>
+<textarea name="body" class="modernInput textarea" rows="10" cols="80" placeholder="Полный текст статьи">@Model.Body</textarea>
+
+<input type="submit" name="submit" class="button" value="Отправить" />
+</form>
+
+    </div>
+</div>

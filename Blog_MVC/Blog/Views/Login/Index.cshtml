@@ -1,0 +1,25 @@
+﻿@model Blog.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="postTitle">Вход</div>
+<div class="postContainer" id="searchContainer">
+    <div class="pageContent">
+        @if (Session["UserID"] == null)
+        {
+            <form action="@Href("~/Login/Login")" class="leftForm" method="post" id="postForm">
+
+            <input type="text" class="modernInput" name="email"  style="width:315px" placeholder="Email" /><br />
+            <input type="password" class="modernInput" name="password"  style="width:315px" placeholder="Пароль" /><br />
+
+            <input type="submit" name="submit" class="button" value="Войти" />
+            </form>
+        }
+        else
+        {
+            <div class="success">Вход выполнен<br /><a href="/">Перейти на главную</a></div>
+        }
+    </div>
+</div>

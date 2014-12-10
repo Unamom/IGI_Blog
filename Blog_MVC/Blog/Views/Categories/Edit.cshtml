@@ -1,0 +1,21 @@
+﻿@model Blog.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="postContainer">
+    <div class="pageContent">
+
+<form action="@Href("~/Categories/Update")" method="post" id="postForm">
+@if (Model.ID != -1)
+{
+    <input type="hidden" name="id" value="@Model.ID" />
+}
+
+<input type="text" name="name" class="modernInput" style="width: 320px;" placeholder="Введите Название Категории" value="@Model.Name" /><br /><br />
+<input type="submit" name="submit" value="Отправить" class="button" />
+</form>
+
+    </div>
+</div>

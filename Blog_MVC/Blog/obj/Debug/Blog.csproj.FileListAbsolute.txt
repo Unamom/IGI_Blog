@@ -1,0 +1,7 @@
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\bin\Blog.dll
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\bin\Blog.pdb
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\bin\EntityFramework.dll
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\bin\EntityFramework.xml
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\obj\Debug\Blog.dll
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\obj\Debug\Blog.pdb
+C:\Users\Vladislav\Desktop\иги\Blog_MVC\Blog\obj\Debug\Blog.csprojResolveAssemblyReference.cache

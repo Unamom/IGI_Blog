@@ -1,0 +1,26 @@
+﻿@using Blog.Models;
+@model IEnumerable<Post>
+
+@{
+    ViewBag.Title = "ManagePosts";
+}
+
+<div class="postContainer">
+    <div class="pageContent">
+    <a href="@Href("~/Posts/Edit")" class="button" >Добавить статью</a>
+  <table class="bordered" style="margin-top: 15px;">
+   <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Текст</th>
+    <th style="width: 140px;">Управление</th>
+   </tr>
+
+    @foreach (Post post in Model)
+    {
+        @AdminPostsHelper.Render(post, Html);
+    }
+
+    </table>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿@using Blog.Models;
+@model IEnumerable<Post>
+           
+<script type="text/javascript">
+    var oopts = {
+        textFont: 'Impact,Arial Black,sans-serif',
+        textHeight: 12,
+        maxSpeed: 0.1,
+        decel: 0.9,
+        depth: 0.99,
+        outlineColour: '#f6f',
+        outlineThickness: 3,
+        pulsateTo: 0.2,
+        pulsateTime: 0.5,
+        wheelZoom: false
+    }, ttags = 'taglist', lock, shape = 'sphere';
+    window.onload = function () {
+        TagCanvas.textFont = 'Trebuchet MS, Helvetica, sans-serif';
+        TagCanvas.textColour = '#00f';
+        TagCanvas.textHeight = 15;
+        TagCanvas.outlineMethod = 'block';
+        TagCanvas.outlineColour = '#acf';
+        TagCanvas.maxSpeed = 0.03;
+        TagCanvas.minBrightness = 0.2;
+        TagCanvas.depth = 0.92;
+        TagCanvas.pulsateTo = 0.6;
+        TagCanvas.initial = [0.1, -0.1];
+        TagCanvas.decel = 0.98;
+        TagCanvas.reverse = true;
+        TagCanvas.hideTags = false;
+        TagCanvas.shadow = '#ccf';
+        TagCanvas.shadowBlur = 3;
+        TagCanvas.weight = false;
+        TagCanvas.imageScale = null;
+        TagCanvas.fadeIn = 1000;
+        TagCanvas.clickToFront = 600;
+        try {
+            TagCanvas.Start('tagcanvas', 'taglist');
+            TagCanvas.Start('smallCanvas', 'moreTags', oopts);
+            f('options');
+        } catch (e) {
+            document.getElementById('cmsg').style.display = 'none';
+            document.getElementsByTagName('canvas')[0].style.border = '0';
+        }
+    };
+</script>
+
+@section link1
+{
+    current
+}
+@section Tags
+{
+@Html.Raw(ViewBag.Categories)
+}
+
+@{
+    ViewBag.Title = "Index";
+    bool isPreviousLinkVisible = ViewBag.isPreviousLinkVisible ?? false;
+    bool isNextLinkVisible = ViewBag.isNextLinkVisible ?? false;
+    bool isAdmin = ViewBag.IsAdmin ?? false;
+}
+
+
+<script>
+    $(function () {
+        $('#slides').slidesjs({
+            width: 350,
+            height: 200,
+            play: {
+                active: true,
+                auto: true,
+                interval: 4000,
+                swap: true
+            }
+        });
+    });
+  </script>
+
+  <div class="container">
+    <div id="slides">
+      <img src="@Url.Content("~/Content/images/1.jpg")">
+      <img src="@Url.Content("~/Content/images/2.jpg")">
+      <img src="@Url.Content("~/Content/images/3.jpg")">
+      
+    </div>
+  </div>
+
+
+@foreach (Post post in Model)
+{
+    @PostHelper.Render(post, Html, isAdmin, false, ViewBag.CategoriesClean, ViewBag.Author);
+}
+
+
+<div class="navLinks">
+@if (isPreviousLinkVisible)
+{
+    <a id="previousLink" href="@Href("~/Posts/Index/" + (ViewBag.PageNumber - 1))">&lt; Предыдущая страница</a>
+}
+
+@if (isNextLinkVisible)
+{
+    <a id="nextLink" href="@Href("~/Posts/Index/" + (ViewBag.PageNumber + 1))">Следующая страница &gt;</a>
+}
+</div>

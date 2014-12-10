@@ -1,0 +1,100 @@
+﻿@using Blog.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Blog.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/JQuery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/tagcanvas.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.slides.min.js")" type="text/javascript"></script>
+    @RenderSection("ExtraHeaders", false)
+</head>
+
+<body>
+<object style="position:absolute;float:left;" type="application/x-shockwave-flash" height="1000" width="290" data="@Url.Content("~/Content/845_butterfly_mouse.swf")"><param name="movie" value="@Url.Content("~/Content/845_butterfly_mouse.swf")" /><param name="wmode" value="transparent" /></object>
+<object style="position:absolute;right: 0;" type="application/x-shockwave-flash" height="1000" width="200" data="@Url.Content("~/Content/845_butterfly_mouse.swf")"><param name="movie" value="@Url.Content("~/Content/845_butterfly_mouse.swf")" /><param name="wmode" value="transparent" /></object>
+<div id="templatemo_wrapper">
+
+	<div id="templatemo_menu">
+                
+        <ul>
+            <li><a href="/" class="@RenderSection("link1", false)">Главная</a></li>
+            <li><a href="/Search" class="@RenderSection("link3", false)">Поиск</a></li>
+            @if (Session["UserID"] != null && (int)Session["UserGroup"] == 1)
+            {
+            <li><a href="/AdminPanel" class="@RenderSection("link2", false)">Админка</a></li>
+            }
+        </ul>	
+    
+    </div> <!-- end of templatemo_menu -->
+
+    <div id="templatemo_left_column">
+    
+        <div id="templatemo_header">
+        
+            <div id="site_title">
+                <h1><img src="@Url.Content("~/Content/images/isign.png")" style="margin-top: -30px;"><a href="/" target="_parent"><strong>Инквизиция</strong><span>Покайтесь же</span></a></h1>
+            </div><!-- end of site_title -->
+            
+        </div> <!-- end of header -->  
+        
+        <div id="templatemo_sidebar">
+            @if (Session["UserID"] == null)
+            {
+            <h4>Авторизация</h4>
+            }
+            else
+            {
+                <h4>Здравствуйте, @Session["UserName"]</h4>
+            }
+            <ul class="templatemo_list">
+                @if (Session["UserID"] == null)
+                {  
+                <li><a href="@Href("~/Login")" target="_parent">Вход на сайт</a></li>
+                <li><a href="@Href("~/Register")" target="_parent">Регистрация</a></li>
+                }
+                else
+                {
+                    if ((int)Session["UserGroup"] == 1)
+                    {
+                        <li><a href="@Href("~/AdminPanel")" target="_parent">Перейти в Админку</a></li>
+                    }
+                    <li><a href="@Href("~/Login/Logout")" target="_parent">Выход</a></li>
+                }
+            </ul>   
+
+            <canvas id="tagcanvas" width="250" height="250"></canvas>
+            <div style="display: none">
+	            <div id="taglist">
+		            <ul style="display: block; width: 200px; float: left">
+			            @RenderSection("Tags", false)
+		            </ul>
+	            </div>
+            </div>
+
+
+        </div> <!-- end of templatemo_sidebar --> 
+    
+    </div> <!-- end of templatemo_left_column -->
+    
+    <div id="templatemo_right_column">
+        <div id="templatemo_main">
+        @RenderBody()
+        </div>
+    
+  <div class="cleaner"></div>
+  </div> 
+    <!-- end of templatemo_main -->
+  <div class="cleaner_h20"></div>
+  
+  	<div id="templatemo_footer">
+    
+		Cозданно специально для ИГИ Буликовым В.И. гр.253501
+        
+    </div>
+  
+    <div class="cleaner"></div>
+</div> <!-- end of warpper -->
+
+</body>
+</html>

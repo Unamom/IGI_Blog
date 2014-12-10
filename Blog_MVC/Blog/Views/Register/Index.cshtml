@@ -1,0 +1,33 @@
+﻿@model Blog.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="postTitle">Регистрация</div>
+<div class="postContainer" id="searchContainer">
+    <div class="pageContent">
+        @if (Session["UserID"] == null)
+        {
+        <form action="@Href("~/Register/Register")" class="leftForm" method="post" id="postForm">
+
+        <input type="text" class="modernInput" name="name" style="width:315px" placeholder="Имя" /><br />
+        <input type="text" class="modernInput" name="lastname" style="width:315px" placeholder="Фамилия" /><br />
+        <select name="sex" class="modernInput" style="width:337px; height: 40px">
+            <option value="0">Выберите пол</option>
+            <option value="Мужской">Мужской</option>
+            <option value="Женский">Женский</option>
+        </select><br />
+        <input type="text" class="modernInput" name="email" style="width:315px" placeholder="Email" /><br />
+        <input type="password" class="modernInput" name="password" style="width:315px" placeholder="Пароль" /><br />
+
+        <input type="submit" name="submit" class="button" value="Зарегистрироваться" />
+        </form>
+        }
+        else
+        {
+            <div class="success">Регистрация пройдена успешно<br /><a href="/">Перейти на главную</a></div>
+        }
+    </div>
+</div>
+

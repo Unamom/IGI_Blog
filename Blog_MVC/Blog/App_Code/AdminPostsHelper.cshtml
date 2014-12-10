@@ -1,0 +1,14 @@
+﻿@using Blog.Models;
+
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html)
+{
+     <tr><td>@post.ID</td><td>@post.Title</td><td>@post.ShortBody</td>
+     <td>
+        <div>
+            <a href="@Href("~/AdminPanel/DeletePost/" + post.ID)" class="actions_ic ic_del"></a>
+            <a href="@Href("~/Posts/Edit/" + post.ID)" class="actions_ic ic_edit"></a>
+       </div>
+     </td>
+     </tr>
+}
+

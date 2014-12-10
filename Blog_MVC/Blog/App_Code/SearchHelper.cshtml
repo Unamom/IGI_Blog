@@ -1,0 +1,19 @@
+﻿@using Blog.Models;
+
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html)
+    {
+          <div class="post_section">
+            
+                <span class="comment"><a href="@Href("~/Posts/Details/" + post.ID + "#comments")">@post.Comments.Count</a></span>
+            
+                <h2><a href="@Href("~/Posts/Details/" + post.ID)">@post.Title</a></h2>
+                
+    
+            	@post.DateTime.ToString("d.m.yyy")
+
+                <!--<img src="images/templatemo_image_01.jpg" alt="image 1" />-->
+                
+                <p>@post.ShortBody</p>
+                
+            </div>
+}

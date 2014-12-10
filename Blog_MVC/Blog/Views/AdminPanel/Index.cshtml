@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section link2{
+current
+}
+
+
+@if (Session["UserID"] == null || (int)Session["UserGroup"] != 1)
+{
+<div class="postTitle">Админ-панель</div>
+<div class="postContainer" id="searchContainer">
+<div class="error">У вас нет доступа к панели администратора</div>
+    </div>
+
+}
+else
+{
+<div class="postTitle">Админ-панель</div>
+<div class="postContainer" id="searchContainer">
+    <div class="pageContent">
+        <a href="/Categories">Управление категориями</a><br />
+        <a href="/AdminPanel/ManagePosts">Управление статьями</a><br />
+        <a href="/AdminPanel/ManageUsers">Управление пользователями</a><br />
+    </div>
+</div>
+
+}

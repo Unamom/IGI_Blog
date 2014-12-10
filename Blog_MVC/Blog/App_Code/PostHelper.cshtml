@@ -1,0 +1,211 @@
+﻿@using Blog.Models;
+
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments, IEnumerable<Category> cats, IEnumerable<User> authors)
+{
+    
+            <div class="post_section">
+            
+                <span class="comment"><a href="@Href("~/Posts/Details/" + post.ID + "#comments")">@post.Comments.Count</a></span>
+            
+                <h2><a href="@Href("~/Posts/Details/" + post.ID)">@post.Title</a></h2>
+                
+    
+            	@post.DateTime.ToString("d.m.yyy") | <strong>Автор:</strong> 
+                
+                @foreach (User aut in authors)
+                {
+                    if (post.AuthorID == aut.ID)
+                    {
+                         @aut.Name
+                    }
+                }
+                
+                 | <strong>Категория:</strong> 
+                 
+                @foreach (Category cat in cats)
+                {
+                    if (post.CategoryID == cat.ID)
+                    {
+                         <a href="@Href("~/Posts/Categories/" + @cat.ID)">@cat.Name</a>;
+                    }
+                }
+                
+                <!--<img src="images/templatemo_image_01.jpg" alt="image 1" />-->
+                
+                <p>@html.Raw((showComments) ? post.Body : post.ShortBody)</p>
+
+                @if (!showComments){
+                    <a href="@Href("~/Posts/Details/" + post.ID)">Читать полностью...</a>
+                }
+                
+            </div>
+    
+    if (showComments)
+    {
+                <div class="comment_tab">
+           	    Комментарии           
+                </div>
+    
+      <div id="comment_section">
+                <ol class="comments first_level"> 
+                        @foreach (Comment comment in post.Comments.OrderBy(x => x.DateTime))
+                        {         
+                        <li>
+                            <div class="comment_box commentbox1">
+
+                                <div class="comment_text">
+                                    <div class="comment_author">
+                            @foreach (User aut in authors)
+                            {
+                                if (comment.AuthorID == aut.ID)
+                                {
+                                     <span>@aut.Name @aut.Lastname</span>
+                                }
+                            }
+                                    
+                                    <span class="date">@comment.DateTime.ToString("yyyy/MM/dd")</span><span class="time">в @comment.DateTime.ToString("HH:mm")</span></div>
+                                    <p>@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))</p>
+                    @if (Session["UserID"] != null)
+                    {
+                        if ((int)Session["UserGroup"] == 1 || comment.AuthorID == (int)Session["UserID"])
+                        {
+                                  <div class="reply"><a href="@Href("~/Posts/DeleteComment/" + comment.ID)">Удалить</a></div>
+                        }
+                    }
+                                </div>
+                                <div class="cleaner"></div>
+                            </div>                        
+                        </li>
+                        }
+                    </ol>
+                </div>
+    
+            if (Session["UserID"] != null)
+            {
+                <div id="comment_form">
+                    <h3>Оставьте комментарий</h3>
+                    
+              		<form action="@Href("~/Posts/Comment/" + post.ID)" method="post">
+                        <div class="form_row">
+                            <textarea id="commentBodyInput" name="body" rows="" cols=""></textarea>
+                        </div>
+                        <input  type="submit" id="commentSubmitInput" name="submit" class="submit_btn" value="Отправить" />
+                    </form>
+                    
+                </div>
+            }
+    
+    
+    }    
+    
+    
+    
+    
+  <!--  <div class="postTitle"><a href="@Href("~/Posts/Details/" + post.ID)">@post.Title</a></div>
+    <div class="postContainer">
+        <div class="postTabs">
+            <div class="dateTab">
+                <div class="month">@post.DateTime.ToString("MMM").ToUpper()</div>
+                <div class="day">@post.DateTime.ToString("dd")</div>
+            </div>
+            <div class="commentsTab">
+                <a href="@Href("~/Posts/Details/" + post.ID + "#comments")">@post.Comments.Count</a>
+            </div>
+        </div>
+        <div class="postContent">
+            <div class="authorPanel">
+                <b>Автор:</b>
+                @foreach (User aut in authors)
+                {
+                    if (post.AuthorID == aut.ID)
+                    {
+                         @aut.Name
+                    }
+                }
+            </div>
+                @if (Session["UserID"] != null)
+                {
+                    if ((int)Session["UserGroup"] == 1)
+                    {
+                        <div style="float: right;">
+                            <a href="@Href("~/Posts/Delete/" + post.ID)" class="actions_ic ic_del"></a>
+                            <a href="@Href("~/Posts/Edit/" + post.ID)" class="actions_ic ic_edit"></a>
+                        </div>
+                    }
+                }
+            <div class="categoryField">
+                <b>Категория:</b>
+                @foreach (Category cat in cats)
+                {
+                    if (post.CategoryID == cat.ID)
+                    {
+                         <a href="@Href("~/Posts/Categories/" + @cat.ID)">@cat.Name</a>;
+                    }
+                }
+            </div>
+            <br /><hr />
+            <div class="postBody">
+            @html.Raw((showComments) ? post.Body : post.ShortBody)   
+            </div>
+            <hr />
+            <div class="tagList">
+                <b>Тэги:</b>
+                @foreach (Tag tag in post.Tags)
+                {
+                    <span class="tag"><a href="@Href("~/Posts/Tags/" + tag.Name)">@tag.Name</a></span>
+                }
+
+            </div>
+            @if (!showComments)
+            { 
+                <a href="@Href("~/Posts/Details/" + post.ID)" class="button fullRead">Читать полностью...</a>
+            }
+        </div>
+    </div>
+
+    
+    if (showComments)
+    {
+        <div id="commentContainer">
+            <a id="comments"></a>
+            @foreach (Comment comment in post.Comments.OrderBy(x => x.DateTime))
+            {
+                <div class="comment">
+                    <div class="commentName">
+                        Автор:
+                            @foreach (User aut in authors)
+                            {
+                                if (comment.AuthorID == aut.ID)
+                                {
+                                     <span>@aut.Name @aut.Lastname</span>
+                                }
+                            }
+                    </div>
+                    <div class="commentBody">@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))</div>
+                    <div class="commentTime">at @comment.DateTime.ToString("HH:mm") on @comment.DateTime.ToString("yyyy/MM/dd")</div>
+                    @if (Session["UserID"] != null)
+                    {
+                        if ((int)Session["UserGroup"] == 1 || comment.AuthorID == (int)Session["UserID"])
+                        {
+                            <div class="commentControlPanel">
+                                <a href="@Href("~/Posts/DeleteComment/" + comment.ID)">Удалить</a>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+            @if (Session["UserID"] != null)
+            {
+                <div id="commentEditor">
+                    <div id="commentPrompt">Комментировать:</div>
+                    <form action="@Href("~/Posts/Comment/" + post.ID)" method="post">
+                        <textarea id="commentBodyInput" name="body" rows="10" cols="60"></textarea><br />
+                        <input type="submit" id="commentSubmitInput" class="button fullRead" name="submit" value="Отправить" />
+                    </form>
+                </div>
+            }
+
+        </div>-->
+    }
+    
+}

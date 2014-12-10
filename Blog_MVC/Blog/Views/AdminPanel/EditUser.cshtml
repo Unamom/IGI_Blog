@@ -1,0 +1,27 @@
+﻿@using Blog.Models;
+@model Blog.Models.User
+
+@{
+    ViewBag.Title = "EditUser";
+}
+<div class="postContainer">
+    <div class="pageContent">
+
+<form action="@Href("~/AdminPanel/UpdateUser")" method="post" id="postForm">
+@if (Model.ID != -1)
+{
+    <input type="hidden" name="id" value="@Model.ID" />
+}
+
+<input type="text" name="name" class="modernInput" style="width: 320px;" placeholder="Имя" value="@Model.Name" /><br />
+<input type="text" name="lastname" class="modernInput" style="width: 320px;" placeholder="Фамилия" value="@Model.Lastname" /><br />
+<input type="text" name="age" class="modernInput" style="width: 320px;" placeholder="Возраст" value="@Model.Age" /><br />
+<input type="text" class="modernInput" name="sex" style="width:315px" value="@Model.Sex" placeholder="Пол" /><br />
+<input type="text" class="modernInput" name="email" style="width:315px" value="@Model.Email" placeholder="Email" /><br />
+<input type="password" class="modernInput" name="password" style="width:315px" value="@Model.Password" placeholder="Пароль" /><br />
+<input type="text" class="modernInput" name="usergroup" style="width:315px" value="@Model.UserGroup" placeholder="Группа" /> <br /><span>(1 - Админ, 0 - Юзер)</span><br /><br />
+<input type="submit" name="submit" value="Отправить" class="button" />
+</form>
+
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@using Blog.Models;
+@model IEnumerable<Category>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="postContainer">
+    <div class="pageContent">
+    <a href="@Href("~/Categories/Edit")" class="button">Добавить категорию</a><br />
+  <table class="bordered" style="margin-top: 15px;">
+   <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th style="width: 140px;">Управление</th>
+   </tr>
+
+    @foreach (Category category in Model)
+    {
+        @CategoryHelper.Render(category, Html);
+    }
+
+    </table>
+    </div>
+</div>
